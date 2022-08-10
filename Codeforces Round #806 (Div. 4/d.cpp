@@ -14,38 +14,33 @@ int main()
         int n;
         cin >> n;
 
-        vector<string> vs;
+        vector<string> vs(n);
         map<string, int> mp;
         vector<bool> ans;
-        vector<string> res;
 
         for (int i = 0; i < n; ++i)
         {
-            string str;
-            cin >> str;
-            vs.push_back(str);
+            cin >> vs[i];
+            ++mp[vs[i]];
         }
 
         for (auto itr : vs)
-            ++mp[itr];
-
-        for (int i = 0; i < vs.size(); ++i)
         {
+            string s = itr;
             bool flag = false;
-            auto itr1 = mp.find(vs[i]);
-            for (int j = 0; j < vs.size(); ++j)
+            for (int i = 1; i < s.length(); ++i)
             {
-                auto itr2 = mp.find(vs[j]);
-                string ans = itr1->first + itr2->first;
-                res.push_back(ans);
-            }
-        }
+                string a = s.substr(0, i);
+                string b = s.substr(i);
 
-        for (int i = 0; i < vs.size(); ++i)
-        {
-            if (find(res.begin(), res.end(), vs[i]) != res.end())
-                ans.push_back(1);
-            else
+                if (mp[a] && mp[b])
+                {
+                    ans.push_back(1);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
                 ans.push_back(0);
         }
 
