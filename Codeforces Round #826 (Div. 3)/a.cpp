@@ -31,63 +31,38 @@ int32_t main()
         // knockcat
         string str1, str2;
         cin >> str1 >> str2;
-        if (str1.size() == 1 and str2.size() == 1)
+
+        int s = -1, l = 1, m = 0, a = 1, b = 1;
+
+        for (auto itr : str1)
         {
-            if (str1[0] == str2[0])
-            {
-                cout << "=" << endl;
-            }
-            else if (str1[0] == 'L')
-            {
-                cout << ">" << endl;
-            }
-            else if (str2[0] == 'L')
-            {
-                cout << "<" << endl;
-            }
-            else if (str1[0] == 'M')
-            {
-                cout << ">" << endl;
-            }
-            else if (str2[0] == 'M')
-                cout << "<" << endl;
+            if (itr == 'X')
+                a *= 2;
+            if (itr == 'S')
+                a *= s;
+            if (itr == 'L')
+                a *= l;
+            if (itr == 'M')
+                a *= 0;
         }
-        else
+        for (auto itr : str2)
         {
-            if (str1.back() == 'L' && str2.back() == 'L')
-            {
-                if (str1.size() == str2.size())
-                    cout << "=" << endl;
-                else if (str1.size() > str2.size())
-                {
-                    cout << ">" << endl;
-                }
-                else
-                {
-                    cout << "<" << endl;
-                }
-            }
-            else if (str1.back() == 'S' && str2.back() == 'S')
-            {
-                if (str1.size() == str2.size())
-                    cout << "=" << endl;
-                else if (str1.size() > str2.size())
-                {
-                    cout << "<" << endl;
-                }
-                else
-                {
-                    cout << ">" << endl;
-                }
-            }
-            else
-            {
-                if (str1.back() == 'L')
-                    cout << ">" << endl;
-                else
-                    cout << "<" << endl;
-            }
+            if (itr == 'X')
+                b *= 2;
+            if (itr == 'S')
+                b *= s;
+            if (itr == 'L')
+                b *= l;
+            if (itr == 'M')
+                b *= 0;
         }
+
+        if (a < b)
+            cout << "<" << endl;
+        if (a == b)
+            cout << "=" << endl;
+        if (a > b)
+            cout << ">" << endl;
     }
     return 0;
 }
