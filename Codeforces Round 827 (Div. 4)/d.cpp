@@ -36,22 +36,29 @@ int32_t main()
         // knockcat
         int n;
         cin >> n;
-
-        vector<int> v(n);
+        unordered_map<int, int> mp;
         int maxi = -1;
+
         for (int i = 0; i < n; ++i)
         {
-            cin >> v[i];
+            int val;
+            cin >> val;
+            if (mp.find(val) == mp.end())
+            {
+                mp[val] = i + 1;
+            }
+            else
+            {
+                mp[val] = max(mp[val], i + 1);
+            }
         }
 
-        for (int i = 0; i < n; ++i)
+        for (int i = 1; i <= 1000; ++i)
         {
-            for (int j = 0; j < n; ++j)
+            for (int j = 1; j <= 1000; ++j)
             {
-                if (coprime(v[i], v[j]))
-                {
-                    maxi = max(maxi, i + 1 + j + 1);
-                }
+                if (coprime(i, j) == 1 and mp.find(i) != mp.end() && mp.find(j) != mp.end())
+                    maxi = max(maxi, mp[i] + mp[j]);
             }
         }
 
