@@ -39,7 +39,7 @@ int32_t main()
         {
             vector<int> v(10, 0);
             int distinct = 0;
-            for (int j = i; j < i+99 and j < n; ++j)
+            for (int j = i; j <= i + 99 and j < n; ++j)
             {
                 if (v[str[j] - '0'] == 0)
                 {
