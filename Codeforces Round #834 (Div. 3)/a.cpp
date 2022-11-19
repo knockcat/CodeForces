@@ -38,7 +38,7 @@ bool isSubstring(string s1, string s2)
 
     return false;
 }
-
+/*
 int32_t main()
 {
     fast;
@@ -103,6 +103,39 @@ int32_t main()
             cout << "YES" << endl;
         else
             cout << "NO" << endl;
+    }
+
+    return 0;
+}*/
+
+bool check(int i, string s, string t)
+{
+    for (int j = 0; j < s.size(); ++j)
+    {
+        if (s[j] != t[(i + j) % 3])
+            return false;
+    }
+    return true;
+}
+
+int32_t main()
+{
+    fast;
+    int tt;
+    cin >> tt;
+    while (tt--)
+    {
+        // Knockcat
+        string s;
+        cin >> s;
+        string ok = "Yes";
+
+        if (check(0, s, ok) or check(1, s, ok) or check(2, s, ok))
+            cout << "YES"
+                 << "\n";
+        else
+            cout << "NO"
+                 << "\n";
     }
 
     return 0;
