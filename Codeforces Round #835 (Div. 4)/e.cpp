@@ -31,7 +31,7 @@ int count(vector<int> &v)
     }
     return ok;
 }
-
+/*
 int32_t main()
 {
     fast;
@@ -75,6 +75,58 @@ int32_t main()
             v[last] = b;
         }
         cout << ans << endl;
+    }
+    return 0;
+}*/
+
+int32_t main()
+{
+    fast;
+    int tt;
+    cin >> tt;
+    while (tt--)
+    {
+        // Knockcat
+
+        int n;
+        cin >> n;
+        int res = 0, cnt = 0;
+        vector<int> v(n);
+        for (int i = 0; i < n; ++i)
+            cin >> v[i];
+        int zero = 0;
+
+        for (int i = n - 1; i >= 0; --i)
+        {
+            if (v[i] == 0)
+                ++zero;
+            else
+                res += zero;
+        }
+        int one = 0, curr = res;
+        for (int i = 0; i < n; ++i)
+        {
+            if (v[i] == 0)
+                --zero;
+
+            int here = curr;
+            if (v[i] == 0)
+            {
+                here -= one;
+                here += zero;
+            }
+            else
+            {
+                here += one;
+                here -= zero;
+            }
+            if (v[i] == 1)
+                ++one;
+
+            res = max(res, here);
+        }
+
+        cout << res << endl;
     }
     return 0;
 }
