@@ -29,22 +29,49 @@ int32_t main()
     while (tt--)
     {
         // knockcat
-        int n, m, k;
+        ll n, m, k;
         cin >> n >> m >> k;
-
-        vector<int> v(m);
         int maxi = 0;
+        int maxiF = 0;
+
+        vector<ll> v(m);
+
+        for (int i = 0; i < m; ++i)
+            cin >> v[i];
+
+        if (n % k == 0)
+        {
+            maxiF = n / k;
+            maxi = k;
+        }
+        else
+        {
+            maxiF = (n / k) + 1;
+            maxi = n % k;
+        }
+
+        bool ok = true;
+        ll count = 0;
         for (int i = 0; i < m; ++i)
         {
-            cin >> v[i];
-            maxi = max(maxi, v[i]);
+            if (v[i] > maxiF)
+            {
+                ok = false;
+                break;
+            }
+            else if (v[i] == maxiF)
+            {
+                --maxi;
+            }
         }
-        vector<int> color(m + 1, k);
 
-        if (maxi > (n + k - 1) / k)
-            cout << "NO" << endl;
-        else
+        if (maxi < 0)
+            ok = false;
+
+        if (ok)
             cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
     }
     return 0;
 }
