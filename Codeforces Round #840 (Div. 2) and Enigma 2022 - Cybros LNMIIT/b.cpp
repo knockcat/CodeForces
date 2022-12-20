@@ -49,42 +49,87 @@ int32_t main()
             cin >> p[i];
 
         vector<pair<int, int>> vp;
+        // for (int i = 0; i < n; ++i)
+        // {
+        //     vp.push_back({h[i], p[i]});
+        // }
+
+        // sort(vp.begin(), vp.end(), comp);
+        // // for (auto itr : vp)
+        // //     cout << itr.first << " " << itr.second << endl;
+        // int end = n;
+        // while (k > 0)
+        // {
+        //     int mini = INT_MAX;
+        //     bool flag = false;
+        //     for (int i = 0; i < end; ++i)
+        //     {
+        //         if (vp[i].first - k > 0)
+        //         {
+        //             vp[i].first -= k;
+        //             mini = min(mini, vp[i].second);
+        //             flag = true;
+        //         }
+        //         else
+        //         {
+        //             vp[i].first = 0;
+        //             end = i;
+        //             break;
+        //         }
+        //     }
+        //     // cout << "chala";
+        //     // cout << end << endl;
+        //     if (mini == INT_MAX)
+        //         break;
+        //     k -= mini;
+        // }
+
+        // if (k >= 0 and vp[0].first == 0)
+        //     cout << "YES" << endl;
+        // else
+        //     cout << "NO" << endl;
+
         for (int i = 0; i < n; ++i)
         {
-            vp.push_back({h[i], p[i]});
+            vp.push_back({p[i], h[i]});
         }
 
-        sort(vp.begin(), vp.end(), comp);
-        // for (auto itr : vp)
-        //     cout << itr.first << " " << itr.second << endl;
-        int end = n;
-        while (k > 0)
+        sort(vp.begin(), vp.end());
+
+        int minus = k;
+        bool ok = true;
+
+        for (int i = 0; i < n; ++i)
         {
-            int mini = INT_MAX;
-            bool flag = false;
-            for (int i = 0; i < end; ++i)
+            int first = vp[i].first;
+            int second = vp[i].second;
+
+            second -= minus;
+            if (second <= 0)
+                continue;
+
+            while (true)
             {
-                if (vp[i].first - k > 0)
+                k -= first; // power
+
+                if (k <= 0)
                 {
-                    vp[i].first -= k;
-                    mini = min(mini, vp[i].second);
-                    flag = true;
+                    ok = false;
+                    break;
                 }
-                else
+
+                minus += k;
+                second -= k;
+
+                if (second <= 0)
                 {
-                    vp[i].first = 0;
-                    end = i;
                     break;
                 }
             }
-            // cout << "chala";
-            // cout << end << endl;
-            if (mini == INT_MAX)
+            if (ok == false)
                 break;
-            k -= mini;
         }
-
-        if (k >= 0 and vp[0].first == 0)
+        if (ok)
             cout << "YES" << endl;
         else
             cout << "NO" << endl;
