@@ -32,29 +32,29 @@ int32_t main()
         string s;
         cin >> s;
 
-        int cnt[4] = {}; // 1,2,3
+        unordered_map<char, int> mp;
 
-        int l = 0;
+        int i = 0, j = 0;
         int n = s.length();
-        int ans = n + 1;
+        int ans = INT_MAX;
 
-        for (int r = 0; r < n; ++r)
+        while (j < n)
         {
-            int dig = s[r] - '0';
+            ++mp[s[j]];
 
-            cnt[dig]++;
-
-            while (cnt[s[l] - '0'] > 1)
-                cnt[s[l] - '0']--, l++;
-
-            if (cnt[1] && cnt[2] && cnt[3])
-                ans = min(ans, r - l + 1);
+            while (mp[s[i]] > 1)
+            {
+                --mp[s[i]];
+                if (mp[s[i]] == 0)
+                    mp.erase(s[i]);
+                ++i;
+            }
+            if (mp['1'] and mp['2'] and mp['3'])
+                ans = min(ans, j - i + 1);
+            ++j;
         }
 
-        if (ans == n + 1)
-            ans = 0;
-
-        cout << ans << '\n';
+        cout << (ans == INT_MAX ? 0 : ans) << endl;
     }
 
     return 0;
