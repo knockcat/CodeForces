@@ -1,57 +1,87 @@
+// KNOCKCAT
+
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-using vb = vector<bool>;
-using vvb = vector<vb>;
-using vi = vector<int>;
-using vvi = vector<vi>;
-using vl = vector<ll>;
-using vvl = vector<vl>;
-using vc = vector<char>;
-using vvc = vector<vc>;
-using vs = vector<string>;
-const ll mod = 1e9 + 7,inf = 1e18;
-#define pb push_back
-#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-void setIO()
+
+#define fast                          \
+    std::ios::sync_with_stdio(false); \
+    cin.tie(nullptr);
+#define int long long int
+#define endl "\n"
+
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
+
+const ll mod = 1e9 + 7;
+const ll eps = 1e-9;
+const ll maxn = 1e5 + 1;
+const ll inf = 5e18;
+const ll minf = -inf;
+
+// This is to print to correct decimal places
+// cout << fixed << setprecision(10) << ans << endl;
+
+void dfs(int sv, int par, int curr, int maxcurr, int k, int &ans, vector<int> &v, vector<int> adj[])
 {
-    fast;
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-}
-int n = 1e5 + 5,m;
-vvi adj(n);
-vi a(n);
-int ans = 0;
-void dfs(int u,int p,int numC,int maxC)
-{
-    if (a[u])numC++;
-    else numC = 0;
-    maxC = max(maxC,numC);//now we know for each node the max # of 
-    //consecutive cats in the path from 1 to that node
-    int numChild = 0;
-    for (int v:adj[u]){
-        if (v != p){
-            dfs(v,u,numC,maxC);
-            numChild++;
+    if (v[sv] == 1)
+        ++curr;
+    else
+        curr = 0;
+
+    maxcurr = max(maxcurr, curr);
+
+    int child = 0;
+
+    for (auto itr : adj[sv])
+    {
+        if (itr != par)
+        {
+            dfs(itr, sv, curr, maxcurr, k, ans, v, adj);
+            ++child;
         }
     }
-    if (numChild == 0 && maxC <= m)ans++;
+
+    if (child == 0 and maxcurr <= k)
+        ++ans;
 }
-int main()
+
+int32_t main()
 {
-    setIO();
-    cin>>n>>m;
-    for (int i = 1;i<=n;i++)cin>>a[i];
-    for (int i = 1;i<n;i++){
-        int u,v;
-        cin>>u>>v;
-        adj[u].pb(v);
-        adj[v].pb(u);
+    fast;
+
+    // int tt;
+    // cin >> tt;
+
+    // while (tt--)
+    // {
+    //     // knockcat
+    // }
+
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> v(n + 1);
+
+    for (int i = 1; i <= n; ++i)
+        cin >> v[i];
+
+    vector<int> adj[n + 1];
+
+    for (int i = 1; i < n; ++i)
+    {
+        int x, y;
+        cin >> x >> y;
+
+        adj[x].push_back(y);
+        adj[y].push_back(x);
     }
-    dfs(1,-1,0,0);
-    cout<<ans;
+
+    int ans = 0;
+
+    dfs(1, -1, 0, 0, k, ans, v, adj);
+
+    cout << ans << endl;
+
     return 0;
 }
