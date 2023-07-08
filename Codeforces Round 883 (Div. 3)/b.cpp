@@ -33,38 +33,30 @@ int32_t main()
     {
         // knockcat
 
-        string one, two, three;
-        cin >> one >> two >> three;
+        char v[3][3];
 
-        char ch = '.';
+        string ans = "DRAW";
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; ++i)
         {
-
-            if (one[i] == two[i] && one[i] == three[i])
-            {
-                ch = one[i];
-            }
+            for (int j = 0; j < 3; ++j)
+                cin >> v[i][j];
         }
-        if (one[0] == one[1] && one[0] == one[2])
-            ch = one[0];
 
-        if (three[0] == three[1] && three[0] == three[2])
-            ch = three[0];
+        if (v[0][0] == v[1][1] and v[2][2] == v[0][0] and v[0][0] != '.')
+            ans = v[0][0];
+        if (v[0][2] == v[1][1] and v[2][0] == v[0][2] and v[0][2] != '.')
+            ans = v[0][2];
 
-        if (two[0] == two[1] && two[0] == two[2])
-            ch = two[0];
+        for (int i = 0; i < 3; ++i)
+        {
+            if (v[i][0] == v[i][1] and v[i][2] == v[i][0] and v[i][0] != '.')
+                ans = v[i][0];
+            if (v[0][i] == v[1][i] and v[2][i] == v[0][i] and v[0][i] != '.')
+                ans = v[0][i];
+        }
 
-        if (three[0] == two[1] && three[0] == one[2])
-            ch = three[0];
-
-        if (one[0] == two[1] && one[0] == three[2])
-            ch = one[0];
-
-        if (ch == '.')
-            cout << "DRAW" << endl;
-        else
-            cout << ch << endl;
+        cout << ans << endl;
     }
     return 0;
 }
