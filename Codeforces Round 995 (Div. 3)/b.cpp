@@ -38,41 +38,26 @@ int32_t main()
     while (tt--)
     {
         // knockcat
-        int n, m, k;
-        cin >> n >> m >> k;
-        vector<int> v(m), know(k);
-        for (auto &ele : v)
-            cin >> ele;
-        ll sum = 0, tot = (n * (n + 1)) / 2;
-        for (auto &ele : know)
-        {
-            cin >> ele;
-            sum += ele;
-        }
 
-        if (k == n)
+        ll n, a, b, c;
+        cin >> n >> a >> b >> c;
+
+        ll oneCycle = a + b + c;
+        ll totCycle = (n / oneCycle) + (n % oneCycle != 0 ? 1 : 0);
+        ll day = 3 * totCycle;
+        ll travel = totCycle * oneCycle;
+
+        if (travel - c >= n)
         {
-            string ans(m, '1');
-            cout << ans << endl;
-        }
-        else if (k < n - 1)
-        {
-            string ans(m, '0');
-            cout << ans << endl;
-        }
-        else
-        {
-            ll dont = tot - sum;
-            string str;
-            for (auto &ele : v)
+            --day;
+            travel -= c;
+            if (travel - b >= n)
             {
-                if (dont == ele)
-                    str += '1';
-                else
-                    str += '0';
+                --day;
+                travel -= b;
             }
-            cout << str << endl;
         }
+        cout << day << endl;
     }
     return 0;
 }
